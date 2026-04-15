@@ -1,18 +1,21 @@
-# React + Vite
+# DevTinder - FrontEnd
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Add react + vite package into your app
+- import tailwind css to your app
+- import daisyUi
+- Add navBar from DaisyUi
+- Install react router dom
+- Create a browserRouter > Routes > Route = /Body > RouteChildren
+- Create an Outlet in your body Component
+- Create a Footer
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-Install Axios
+-CORS - install cors in backend => add middleware to with configurations : origin, credentials : true
+-Whenever you're making API call using axios pass withCredentials : true
+-Install Redux TOOLKIT
+-configureStore => Provider => createSlice => add reducer to store
+-Make your photo and text of NavBar dynamic using useSelector
+-login and see if your data is coming properly
+-Navbar should be updated as soon as user logs in
+-Create a component folder(already did from start) + add a constants file.
+-Using useNavigator() redirect from /login to /feed 
