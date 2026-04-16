@@ -19,3 +19,9 @@
 -Navbar should be updated as soon as user logs in
 -Create a component folder(already did from start) + add a constants file.
 -Using useNavigator() redirect from /login to /feed 
+
+-User must not be able to visit any other routes without begin logged-In
+-If token is not present, redirect to login page
+-Logout
+-Get the feed and add the feed to slice
+-build the user card on feed
