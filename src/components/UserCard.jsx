@@ -2,13 +2,15 @@ const UserCard = ({user}) => {
     const {firstName, lastName, age, gender, hobbies, photoUrl, about} = user;
 
     return (
-        <div className="card bg-base-200 w-85 mt-10 mx-auto myshadow-sm">
-            <figure>
+        <div className="card bg-base-200 w-85 mt-10 mx-auto myshadow-sm rounded-2xl">
+            <figure className="p-3 h-100 overflow-hidden">
                 <img
-                src={photoUrl}
-                alt="User Image" />
+                    className="w-full h-full object-cover rounded-2xl"
+                    src={photoUrl}
+                    alt="User Image"
+                />
             </figure>
-            <div className="card-body">
+            <div className="card-body mt-[-20px]">
                 <h2 className="card-title text-2xl">{firstName + " " + lastName}</h2>
                 <div className="flex mt-[-10px]">
                     {age && <h2 className="text-md text-gray-200">{age +", "} </h2>}

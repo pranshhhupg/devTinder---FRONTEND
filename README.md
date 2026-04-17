@@ -25,3 +25,4 @@
 -Logout
 -Get the feed and add the feed to slice
 -build the user card on feed
+-Add toast to when clicked on saved profile.
