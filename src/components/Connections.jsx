@@ -10,12 +10,11 @@ const Connections = () => {
 
     const getConnections = async () => {
         try{
-            if(!users) {
-                users = await axios.get(BASE_URL + "/user/connections",{
-                withCredentials: true
+            users = await axios.get(BASE_URL + "/user/connections",{
+            withCredentials: true
             });
-                dispatch(addConnection(users.data.data));
-            }
+            dispatch(addConnection(users.data.data));
+            
         }
         catch(err){
             console.log(err.response);
@@ -39,7 +38,7 @@ const Connections = () => {
                 const {firstName, lastName, age, gender, photoUrl, about} = user;
 
                 return (
-                    <div className="flex items-center bg-base-300 w-1/2 mx-auto my-6 p-4 rounded-lg">
+                    <div className="flex items-center bg-base-300 w-1/2 mx-auto my-6 p-4 rounded-2xl">
                         <div className="ml-1 w-30 h-30 overflow-hidden flex-shrink-0">
                             <img
                                 src={photoUrl}

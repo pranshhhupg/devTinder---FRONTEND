@@ -11,7 +11,6 @@ const Feed = () => {
 
     const getFeed = async () => {
         try{
-            if(userFeed) return; 
             userFeed = await axios.get(BASE_URL + "/user/feed",
                 {withCredentials : true},
             )
@@ -25,10 +24,14 @@ const Feed = () => {
 
     useEffect(()=>{
         getFeed();
-    },[])
+    },[]);
+
+    if(!userFeed || userFeed.length===0){
+        return <h1 className="text-2xl text-center opacity-50 mt-10">No User Found!</h1>
+    }
 
     return (
-        <div>
+        <div className="mb-10">
             {userFeed && <UserCard user = {userFeed[0]}/>}
         </div>
     )

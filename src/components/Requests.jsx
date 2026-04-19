@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import { addRequest, removeRequest } from "../utils/requestSlice";
 import { useEffect } from "react";
+import { addUserToConnection } from "../utils/connectionSlice";
 
 const Requests = () => {
     const dispatch = useDispatch();
@@ -25,13 +26,12 @@ const Requests = () => {
 
     const fetchRequests = async () => {
         try{
-            if(!request){
-                request = await axios.get(BASE_URL + "/user/requests",{
-                    withCredentials: true,
-                });
+            request = await axios.get(BASE_URL + "/user/requests",{
+                withCredentials: true,
+            });
 
-                dispatch(addRequest(request.data.data));
-            }
+            dispatch(addRequest(request.data.data));
+            
         }
         catch(err){
             console.log(err.response);
@@ -48,14 +48,14 @@ const Requests = () => {
     return (
         <div>
             <div className="text-center ">
-                <h1 className ="text-4xl font-bold mt-10 text-center">Your Requests</h1>
+                <h1 className ="text-4xl font-bold mt-10 text-center opacity-60 mb-10">Your Requests</h1>
             </div>
 
             {request.map((user)=>{
                 const {_id,firstName, lastName, age, gender, photoUrl, about} = user.fromUserId;
 
                 return (
-                    <div className="flex items-center bg-base-300 w-1/2 mx-auto my-6 p-4 rounded-lg">
+                    <div className="flex items-center bg-base-300 w-1/2 mx-auto my-6 p-4 rounded-2xl">
                         <div className="ml-1 w-30 h-30 overflow-hidden flex-shrink-0">
                             <img
                                 src={photoUrl}
@@ -73,10 +73,21 @@ const Requests = () => {
                             <h2 className="opacity-60 mt-1 pr-5">{about}</h2>
                         </div>
                         <div className="ml-auto flex">
-                            <button className="btn btn-primary mr-1 text-lg p-5 "
-                            onClick={() => handleRequest("rejected",user._id)}>Ignore</button>
-                            <button className="btn btn-secondary mx-2 text-lg p-5"
-                            onClick={() => handleRequest("accepted",user._id)}>Accept</button>
+                            <button
+                            className="btn px-6 mr-3 rounded-xl bg-red-800 py-6 text-white text-base font-medium 
+                            shadow-md transition duration-300 hover:bg-red-900 hover:scale-105 hover:shadow-lg active:scale-95"
+                            onClick={() => handleRequest("rejected", user._id)}
+                            >
+                                Reject
+                            </button>
+
+                            <button
+                                className="btn px-6  rounded-xl bg-blue-900 py-6 text-white text-base font-medium 
+                                shadow-md transition duration-300 hover:bg-green-700 hover:scale-105 hover:shadow-lg active:scale-95"
+                                onClick={() => handleRequest("accepted", user._id)}
+                            >
+                            Accept
+                            </button>
                         </div>
                     </div>
                 )

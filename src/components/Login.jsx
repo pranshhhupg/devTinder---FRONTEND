@@ -38,7 +38,7 @@ const Login = () => {
             )
 
             dispatch(addUser(res.data.data));
-            navigate("/feed");
+            navigate("/profile");
         }
         catch(err){
             setError(err.response.data);
@@ -65,7 +65,7 @@ const Login = () => {
 
     return (
         <div>
-            <div className="card bg-base-300 w-90 shadow-sm my-20 mx-auto">
+            <div className="card bg-base-300 w-90 shadow-sm my-10 mx-auto">
                 <div className="card-body">
                     <h2 className="card-title mx-auto">{signup ? "Sign Up" : "Log In"}</h2>
                     
@@ -106,25 +106,11 @@ const Login = () => {
                             onClick={changeToSignUp}>{signup ? "Already a User? Login in here" : "New User? Sign Up Here"}</p>
                     </div>
                     
-                    {
-                        signup && (
-                            <div className="card-actions justify-center pt-2">
-                            <button className="btn btn-primary"
-                            onClick={handleSignUp}>Sign Up</button>
-                            </div>
-                        )
-                    }
+                    <div className="card-actions justify-center pt-2">
+                    <button className="btn btn-primary"
+                    onClick={signup ? handleSignUp : handleLogin}>{signup ? "Sign Up" : "Login"}</button>
+                    </div>
 
-                    {
-                        !signup && 
-                        (<div className="card-actions justify-center pt-2">
-                        <button className="btn btn-primary"
-                        onClick={handleLogin}>Login</button>
-                        </div>
-                        )
-
-                    }
-                        
                     </div>
                 </div>
             </div>

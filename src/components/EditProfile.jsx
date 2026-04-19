@@ -4,6 +4,7 @@ import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = ({user}) => {
     const [firstName, setFirstName] =useState(user.firstName);
@@ -18,6 +19,7 @@ const EditProfile = ({user}) => {
 
     const userInfo = {firstName,lastName,age,gender,hobbies,photoUrl,about};
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSaveProfile = async () => {
         try {
@@ -46,6 +48,7 @@ const EditProfile = ({user}) => {
           setTimeout(()=>{
             setToast(false)
           },3000);
+          navigate("/feed");
 
         } catch (err) {
           setError(err?.response?.data || "Something went wrong");

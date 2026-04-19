@@ -121,6 +121,11 @@ const NavBar = () => {
                             Requests
                         </Link>
                     </li>
+                    <li>
+                        <Link to="/status" onClick={() => setOpen(false)}>
+                            Status
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </>

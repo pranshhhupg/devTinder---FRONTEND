@@ -8,9 +8,7 @@ const Profile = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!user) {
-            fetchProfile();
-        }
+        fetchProfile();
     }, []);
 
     const fetchProfile = async () => {
