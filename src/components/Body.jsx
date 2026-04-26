@@ -35,12 +35,19 @@ const Body = () => {
     },[]);
 
     return (
-        <div>
-            <NavBar/>
-            <Outlet/>
-            <Footer/>
-        </div>
-    );
+    <div className="min-h-screen flex flex-col">
+      
+      <NavBar />
+
+      {/* This is where Feed/UserCard renders */}
+      <div className="flex-grow">
+        <Outlet />
+      </div>
+
+      <Footer />
+
+    </div>
+  );
 };
 
 export default Body;

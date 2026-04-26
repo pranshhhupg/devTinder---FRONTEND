@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 const EditProfile = ({user}) => {
     const [firstName, setFirstName] =useState(user.firstName);
@@ -132,7 +133,6 @@ const EditProfile = ({user}) => {
                 <div className="pt-20">
                     <UserCard user = {userInfo}/>
                 </div>
-
             </div>
         </div>
     );

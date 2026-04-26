@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import { useEffect } from "react";
 import UserCard from "./UserCard";
+import Footer from "./Footer";
 
 const Feed = () => {
     const dispatch = useDispatch();

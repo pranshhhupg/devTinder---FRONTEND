@@ -26,3 +26,7 @@
 -Get the feed and add the feed to slice
 -build the user card on feed
 -Add toast to when clicked on saved profile.
+-New Page : connection Request
+-New Page : See my connections
+-Accept/Reject from Request
+-Interest/ignore from card
