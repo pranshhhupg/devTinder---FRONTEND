@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Connections = () => {
             </div>
 
             {users.map((user)=>{
-                const {firstName, lastName, age, gender, photoUrl, about} = user;
+                const {_id, firstName, lastName, age, gender, photoUrl, about} = user;
 
                 return (
                     <div className="flex items-center bg-base-300 w-1/2 mx-auto my-6 p-4 rounded-2xl">
@@ -56,6 +57,11 @@ const Connections = () => {
                             )}
                             </div>
                             <h2 className="opacity-60 mt-1 pr-5">{about}</h2>
+                        </div>
+                        <div className="flex justify-end">
+                            <Link to = {"/chat/" + _id}>
+                            <button className = " bg-blue-900 rounded-2xl p-5 mx-2 hover:cursor-pointer">Chat</button>
+                            </Link>
                         </div>
                     </div>
                 )
