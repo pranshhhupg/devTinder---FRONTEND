@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const Chat = () => {
     const [message, setMessage] = useState([]);
@@ -10,27 +12,65 @@ const Chat = () => {
     const user = useSelector((store)=>store?.user);
     const userId = user?._id;
 
+    const messagesEndRef = useRef(null); // ✅ only added this
+
+    const fetchChatMessages = async () =>{
+        try{
+            let chat = await axios.get(BASE_URL+"/chat/" + targetUserId, {
+                withCredentials: true,
+            });
+
+            const oldMessages = chat.data.messages;
+
+            const message = oldMessages.map((msg)=>{
+                const time = new Date(msg.createdAt).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+                const {senderId, text} = msg;
+                return {
+                    firstName : senderId?.firstName,
+                    lastName : senderId?.lastName,
+                    text : text,
+                    time,
+                }
+            });
+
+            setMessage(message);
+        }
+        catch(err){
+            console.log(err.response);
+        }
+    }
+
+    useEffect(()=>{
+        fetchChatMessages();
+    },[])
+
     useEffect(()=>{
         if(!user) return ;
 
         const socket = createSocketConnection();
         socket.emit("joinChat", {firstName : user.firstName, userId, targetUserId});
 
-        socket.on("messageReceived", ({firstName, text}) => {
-            setMessage((prev) => [...prev, {firstName, text}]);
+        socket.on("messageReceived", ({firstName,lastName, text}) => {
+            setMessage((prev) => [...prev, {firstName, lastName,text}]);
         });
 
-        //when component is unmounted it will be called
         return () => {
-            //you should not let your socket be opened forever
             socket.disconnect();
         }
     },[userId, targetUserId]);
 
+    // ✅ AUTO SCROLL ONLY
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [message]);
+
     const HandleSendBtn = () => {
         if(!input.trim()) return ;
         const socket = createSocketConnection();
-        socket.emit("sendMessage",{firstName : user.firstName, userId, targetUserId, text:input});
+        socket.emit("sendMessage",{firstName : user.firstName,lastName : user.lastName, userId, targetUserId, text:input});
         setInput("");
     }
 
@@ -43,15 +83,22 @@ const Chat = () => {
 
             <div className="h-[60vh] overflow-auto p-4 space-y-4">
                 {message.map((msg, index) => (
-                    <div key={index} className="chat chat-start">
+                    <div key={index} className={"chat " + (user.firstName === msg.firstName ? "chat-end" : "chat-start")}>
                         <div className="chat-header">
-                            {msg.firstName}
-                            <time className="text-xs opacity-50 ml-2">2 hours ago</time>
+                            {msg.firstName + " " + msg.lastName}
+                            <time className="text-xs opacity-50 ml-2">
+                                {msg.time ? msg.time : "Just Now"}
+                            </time>
                         </div>
                         <div className="chat-bubble">{msg.text}</div>
-                        <div className="chat-footer opacity-50">{msg.status}</div>
+                        {
+                            user.firstName==msg.firstName && 
+                            <div className="chat-footer opacity-50">Seen</div>
+                        }
                     </div>
                 ))}
+
+                <div ref={messagesEndRef} />
             </div>
 
             <div className="flex flex-row">
