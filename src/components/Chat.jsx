@@ -12,7 +12,7 @@ const Chat = () => {
     const user = useSelector((store)=>store?.user);
     const userId = user?._id;
 
-    const messagesEndRef = useRef(null); // ✅ only added this
+    const messagesEndRef = useRef(null);
 
     const fetchChatMessages = async () =>{
         try{
