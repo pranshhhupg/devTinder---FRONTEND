@@ -13,6 +13,8 @@ import EditProfile from './components/EditProfile'
 import CollabHub from './components/CollabHub'
 import CommunityList from './components/communities/CommunityList'
 import CommunityDetail from './components/communities/CommunityDetail'
+import SearchDevelopers from './components/SearchDevelopers'
+import Messenger from './components/Messenger'
 
 const App = function() {
   return (
@@ -32,6 +34,8 @@ const App = function() {
             <Route path = "/collab" element = {<CollabHub/>}/>
             <Route path = "/communities" element = {<CommunityList/>}/>
             <Route path = "/communities/:communityId" element = {<CommunityDetail/>}/>
+            <Route path = "/search" element = {<SearchDevelopers/>}/>
+            <Route path="/messenger" element={<Messenger/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

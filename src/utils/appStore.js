@@ -6,6 +6,8 @@ import requestSlice from "./requestSlice";
 import statusSlice from "./statusSlice";
 import opportunitySlice from "./opportunitySlice";
 import communitySlice from "./communitySlice";
+import searchSlice from "./searchSlice";
+import messengerSlice from "./messengerSlice";
 
 const appStore = configureStore({
     reducer : {
@@ -16,6 +18,8 @@ const appStore = configureStore({
         status : statusSlice,
         opportunity : opportunitySlice,
         community : communitySlice,
+        search : searchSlice,
+        messenger : messengerSlice,
     }
 });
 
