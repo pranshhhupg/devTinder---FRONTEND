@@ -11,6 +11,8 @@ import Status from './components/Status'
 import Chat from './components/Chat'
 import EditProfile from './components/EditProfile'
 import CollabHub from './components/CollabHub'
+import CommunityList from './components/communities/CommunityList'
+import CommunityDetail from './components/communities/CommunityDetail'
 
 const App = function() {
   return (
@@ -28,6 +30,8 @@ const App = function() {
             <Route path = "/status" element = {<Status/>}/>
             <Route path = "/chat/:targetUserId" element = {<Chat/>}/>
             <Route path = "/collab" element = {<CollabHub/>}/>
+            <Route path = "/communities" element = {<CommunityList/>}/>
+            <Route path = "/communities/:communityId" element = {<CommunityDetail/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

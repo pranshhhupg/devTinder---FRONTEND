@@ -34,7 +34,7 @@ export default function UserCard({ feedItem }) {
         <img
           src={photoUrl}
           alt={`${firstName} ${lastName}`}
-          className="w-full h-60 object-cover"
+          className="w-full h-60 hover:h-96 object-cover transition-all duration-500 ease-in-out"
           onError={(e) => {
             e.target.src =
               "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp";

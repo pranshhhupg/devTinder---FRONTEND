@@ -135,6 +135,8 @@ const Chat = () => {
     }
   };
 
+  console.log(message);
+
   return (
     <div className="w-full md:w-2/3 lg:w-1/2 mx-auto mt-8 h-[85vh] flex flex-col bg-base-200 border border-base-300 rounded-3xl shadow-2xl overflow-hidden">
 
