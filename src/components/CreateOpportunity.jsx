@@ -7,8 +7,10 @@ const TYPES  = ["hackathon", "startup", "company hiring", "open source", "freela
 const LEVELS = ["beginner", "intermediate", "expert", "any"];
 
 const ROLE_OPTIONS = [
-  "frontend dev", "backend dev", "ml engineer", "designer",
-  "product manager", "devops", "mobile dev", "data analyst", "qa engineer",
+  "frontend dev", "backend dev", "full stack", "ml engineer",
+  "ai engineer", "prompt engineer", "data scientist", "data analyst",
+  "designer", "product manager", "devops", "mobile dev", "qa engineer",
+  "blockchain dev", "consultant",
 ];
 
 const TECH_SUGGESTIONS = [
@@ -16,6 +18,12 @@ const TECH_SUGGESTIONS = [
   "Node.js", "Express", "Python", "Django", "FastAPI", "Java", "Spring",
   "MongoDB", "PostgreSQL", "MySQL", "Redis", "GraphQL",
   "Docker", "Kubernetes", "AWS", "Flutter", "Kotlin", "Swift",
+  "Machine Learning", "Deep Learning", "TensorFlow", "PyTorch", "Keras",
+  "LLM", "GPT", "OpenAI", "Gemini", "Claude", "Anthropic", "HuggingFace",
+  "Prompt Engineering", "RAG", "Vector DB", "Pinecone", "LangChain",
+  "LangGraph", "LlamaIndex", "Agents", "CrewAI", "AutoGen", "Fine-tuning",
+  "MLflow", "Airflow", "NLP", "Computer Vision", "Pandas", "Tableau",
+  "Selenium", "Cypress", "Solidity", "Web3", "Excel",
 ];
 
 const EMPTY_FORM = {

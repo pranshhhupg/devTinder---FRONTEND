@@ -8,13 +8,17 @@ const CATEGORIES = [
   { value: "backend", label: "Backend Developers" },
   { value: "frontend", label: "Frontend Developers" },
   { value: "ml", label: "ML Engineering Hub" },
+  { value: "ai", label: "AI & Prompt Engineering" },
+  { value: "data-science", label: "Data Science & Analytics" },
   { value: "devops", label: "DevOps & Cloud" },
   { value: "mobile", label: "Mobile Development" },
+  { value: "qa", label: "QA & Testing" },
   { value: "open-source", label: "Open Source" },
   { value: "startup", label: "Startup Builders" },
   { value: "system-design", label: "System Design" },
   { value: "web3", label: "Web3 & Blockchain" },
   { value: "cybersecurity", label: "Cybersecurity" },
+  { value: "consulting", label: "Consulting & Strategy" },
   { value: "general", label: "General" },
 ];
 

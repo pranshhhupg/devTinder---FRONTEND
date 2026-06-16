@@ -21,10 +21,17 @@ const ROLE_FILTERS = [
   { value: "backend", label: "Backend Dev"   },
   { value: "fullstack", label: "Full Stack"     },
   { value: "ml", label: "ML Engineer"   },
+  { value: "ai", label: "AI Engineer" },
+  { value: "prompt", label: "Prompt Engineer" },
+  { value: "datascientist", label: "Data Scientist" },
+  { value: "dataanalyst", label: "Data Analyst" },
   { value: "devops",label: "DevOps"         },
   { value: "mobile",  label: "Mobile Dev"    },
   { value: "designer", label: "UI/UX Designer" },
   { value: "product", label: "Product Manager"},
+  { value: "qa", label: "QA Engineer" },
+  { value: "blockchain", label: "Blockchain Dev" },
+  { value: "consultant", label: "Consultant" },
 ];
 
 const AVAILABILITY_FILTERS = [
@@ -42,6 +49,7 @@ const AVAILABILITY_FILTERS = [
 const SUGGESTIONS = [
   "React developer",
   "AI engineer",
+  "Prompt engineer",
   "hackathon builders",
   "startup founders",
   "Flutter dev",
@@ -49,6 +57,9 @@ const SUGGESTIONS = [
   "Full stack MERN",
   "UI designer",
   "Data scientist",
+  "Data analyst",
+  "QA engineer",
+  "Blockchain dev",
   "Node.js backend",
 ];
 

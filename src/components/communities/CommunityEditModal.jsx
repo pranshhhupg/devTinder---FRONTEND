@@ -8,13 +8,17 @@ const CATEGORY_LABELS = {
   backend: "Backend Developers",
   frontend: "Frontend Developers",
   ml: "ML Engineering Hub",
+  ai: "AI & Prompt Engineering",
+  "data-science": "Data Science & Analytics",
   devops: "DevOps & Cloud",
   mobile: "Mobile Development",
+  qa: "QA & Testing",
   "open-source": "Open Source",
   startup: "Startup Builders",
   "system-design": "System Design",
   web3: "Web3 & Blockchain",
   cybersecurity: "Cybersecurity",
+  consulting: "Consulting & Strategy",
   general: "General",
 };
 
