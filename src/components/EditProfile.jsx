@@ -268,19 +268,19 @@ export default function EditProfile() {
   const toggleArray = (key, value) => {
     const arr = form[key];
     if (arr.includes(value)) {
-      // Deselect — never leave preferredRoles or role completely empty
+      // Deselect — never leave preferredRoles or lookingFor completely empty
       const next = arr.filter((v) => v !== value);
-      if ((key === "preferredRoles" || key === "role") && next.length === 0) {
+      if ((key === "preferredRoles" || key === "lookingFor") && next.length === 0) {
         set(key, ["any"]);
       } else {
         set(key, next);
       }
     } else {
       // Select
-      if ((key === "preferredRoles" || key === "role") && value === "any") {
+      if ((key === "preferredRoles" || key === "lookingFor") && value === "any") {
         // Choosing "any" clears all specific selections
         set(key, ["any"]);
-      } else if (key === "preferredRoles" || key === "role") {
+      } else if (key === "preferredRoles" || key === "lookingFor") {
         // Choosing a real role removes "any" from the array
         set(key, [...arr.filter((v) => v !== "any"), value]);
       } else {
@@ -517,7 +517,7 @@ export default function EditProfile() {
             <BadgeMultiSelect
               options={ROLE_OPTIONS}
               selected={form.lookingFor}
-              onToggle={(v) => toggleArray("role", v)}
+              onToggle={(v) => toggleArray("lookingFor", v)}
             />
           </div>
         </section>
