@@ -176,30 +176,43 @@ function TagInput({ label, placeholder, values, onChange, suggestions = [] }) {
         ))}
       </div>
       <div className="relative">
-        <input
-          type="text"
-          inputMode="text"
-          enterKeyHint="done"
-          value={input}
-          onChange={(e) => {
-            const val = e.target.value;
-            // Android soft-keyboard may append "\n" or "," instead of firing a key event
-            if (val.endsWith(",") || val.endsWith("\n")) {
-              add(val.replace(/[,\n]+$/, ""));
-            } else {
-              setInput(val);
-            }
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === ",") { e.preventDefault(); add(input); }
-          }}
-          // Android doesn't reliably fire onKeyDown for Enter — onKeyUp is the fallback
-          onKeyUp={(e) => {
-            if (e.key === "Enter") { e.preventDefault(); add(input); }
-          }}
-          placeholder={placeholder}
-          className="input input-bordered input-sm w-full"
-        />
+        <div className="flex gap-1">
+          <input
+            type="text"
+            inputMode="text"
+            enterKeyHint="done"
+            value={input}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val.endsWith(",") || val.endsWith("\n")) {
+                add(val.replace(/[,\n]+$/, ""));
+              } else {
+                setInput(val);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.keyCode === 13 || e.key === ",") {
+                e.preventDefault();
+                add(input);
+              }
+            }}
+            onKeyUp={(e) => {
+              if (e.key === "Enter" || e.keyCode === 13) {
+                e.preventDefault();
+                add(input);
+              }
+            }}
+            placeholder={placeholder}
+            className="input input-bordered input-sm flex-1"
+          />
+          <button
+            type="button"
+            onClick={() => add(input)}
+            className="btn btn-primary btn-sm px-3"
+          >
+            +
+          </button>
+        </div>
         {input && filtered.length > 0 && (
           <ul className="absolute z-10 bg-base-100 border border-base-300 rounded-box w-full mt-1 max-h-40 overflow-y-auto shadow-lg">
             {filtered.slice(0, 6).map((s) => (
@@ -207,7 +220,6 @@ function TagInput({ label, placeholder, values, onChange, suggestions = [] }) {
                 key={s}
                 className="px-3 py-1.5 text-sm hover:bg-base-200 cursor-pointer"
                 onMouseDown={() => add(s)}
-                // onTouchEnd for mobile — onMouseDown doesn't fire on touch
                 onTouchEnd={(e) => { e.preventDefault(); add(s); }}
               >
                 {s}
@@ -216,7 +228,7 @@ function TagInput({ label, placeholder, values, onChange, suggestions = [] }) {
           </ul>
         )}
       </div>
-      <p className="text-xs text-base-content/40">Press Enter or comma to add</p>
+      <p className="text-xs text-base-content/40">Type and press + or Enter to add · comma also works</p>
     </div>
   );
 }

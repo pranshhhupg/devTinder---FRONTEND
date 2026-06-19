@@ -229,8 +229,12 @@ const ChatPanel = ({ targetUserId, onMessageSent }) => {
     setInput('');
   }, [input, user, targetUserId, onMessageSent]);
 
+  // On mobile, Enter creates a new line — user taps Send button instead.
+  // On desktop, Enter sends; Shift+Enter inserts a new line.
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (!isMobile && e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -347,7 +351,8 @@ const ChatPanel = ({ targetUserId, onMessageSent }) => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             rows={1}
-            enterKeyHint="send"
+            // enterKeyHint omitted — lets Android show its default return key
+            // so users can insert new lines; Send happens via the ➤ button
           />
           <button
             className="btn btn-primary btn-sm rounded-2xl px-4 h-[44px]"
@@ -357,7 +362,7 @@ const ChatPanel = ({ targetUserId, onMessageSent }) => {
           </button>
         </div>
         <p className="text-[10px] text-base-content/30 mt-1 px-1">
-          Enter to send · use ↵ on keyboard for new line
+          {isMobile ? 'Tap ➤ to send · Enter for new line' : 'Enter to send · Shift+Enter for new line'}
         </p>
       </div>
     </div>
