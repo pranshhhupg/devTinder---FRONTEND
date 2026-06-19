@@ -557,11 +557,14 @@ export default function EditProfile() {
           </div>
 
           <div className="form-control">
-            <label className="label">
-              <span className="label-text">I identify as / I'm looking for collaborators who need</span>
+            <label className="span">
+              <span className="opacity-60 font-semibold text-md uppercase">I identify as / I'm looking for collaborators who need</span>
             </label>
             <p className="text-xs text-base-content/40 mb-2">
-              What role do you play? Others looking for this role will find you.
+              Others looking for this role will find you.
+              <span className="text-red-700 text-xs pl-1">
+                 Ensure your Selected Skills are Relevant to your Role.
+              </span>
             </p>
             <BadgeMultiSelect
               options={ROLE_OPTIONS}
@@ -646,9 +649,8 @@ export default function EditProfile() {
         {/* ── Section 4: Looking For (Desired Developer) ────────── */}
         <section className="card bg-base-200 p-5 flex flex-col gap-4 shadow-[0_0_20px_rgba(0,0,0,0.25)] shadow-primary border-2 border-primary/30">
           <SectionHeader
-            icon="🔍"
             title="Looking For"
-            subtitle="Describe your ideal collaborator — these preferences tune your feed"
+            subtitle="Describe your ideal collaborator, these preferences tune your feed."
           />
 
           {/* Preferred Roles */}
