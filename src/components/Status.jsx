@@ -21,7 +21,6 @@ const Status = () => {
 
       dispatch(addStatus(response.data.data));
     } catch (err) {
-      console.log(err.response);
     }
   };
 
