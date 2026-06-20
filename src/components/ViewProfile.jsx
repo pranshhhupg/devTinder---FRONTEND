@@ -4,11 +4,11 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
 const TYPE_META = {
-  "hackathon": { badge: "badge-primary",   icon: "⚡", label: "Hackathon" },
-  "startup": { badge: "badge-secondary",  icon: "🚀", label: "Startup" },
-  "company hiring": { badge: "badge-success",    icon: "🏢", label: "Company Hiring" },
-  "open source": { badge: "badge-info",       icon: "🔓", label: "Open Source" },
-  "freelance":  { badge: "badge-warning",    icon: "💼", label: "Freelance" },
+  "hackathon": { badge: "badge-primary",   icon: "", label: "Hackathon" },
+  "startup": { badge: "badge-primary",  icon: "", label: "Startup" },
+  "company hiring": { badge: "badge-primary",    icon: "", label: "Company Hiring" },
+  "open source": { badge: "badge-primary",       icon: "", label: "Open Source" },
+  "freelance":  { badge: "badge-primary",    icon: "", label: "Freelance" },
 };
 
 const DEFAULT_AVATAR =

@@ -62,7 +62,7 @@ const NavBar = () => {
   return (
     <>
       {/* NAVBAR */}
-      <div className="navbar bg-base-300 shadow-sm px-5">
+      <div className="navbar bg-base-300 shadow-sm md:px-5">
 
         {/* LEFT SIDE */}
         <div className="flex-1 flex items-center gap-1">
@@ -75,7 +75,7 @@ const NavBar = () => {
             ☰
           </button>
 
-          <Link to="/feed" className="btn btn-ghost px-1 md:text-2xl text-xl">
+          <Link to="/feed" className="btn btn-ghost px-1 text-2xl font-bold">
             <p>
               Dev
               <span className="text-primary">Match</span>

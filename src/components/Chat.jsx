@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { createSocketConnection } from '../utils/socket';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
@@ -12,6 +12,7 @@ const Chat = () => {
   const [input, setInput] = useState('');
 
   const { targetUserId } = useParams();
+  const navigate = useNavigate();
 
   const user = useSelector((store) => store?.user);
   const dispatch = useDispatch();
@@ -20,6 +21,9 @@ const Chat = () => {
 
   const messagesEndRef = useRef(null);
   const socketRef = useRef(null);
+
+  // Detect mobile once — stable across renders
+  const isMobile = useRef(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)).current;
 
   const fetchTargetUser = async () => {
     try {
@@ -64,7 +68,6 @@ const Chat = () => {
     fetchChatMessages();
     fetchTargetUser();
 
-    // Mark messages as read when opening the chat
     axios
       .post(
         `${BASE_URL}/chat/mark-read/${targetUserId}`,
@@ -95,7 +98,6 @@ const Chat = () => {
         { firstName, lastName, photoUrl, text, time, senderId },
       ]);
 
-      // If from the other person, mark read immediately
       if (senderId && senderId !== userId) {
         axios
           .post(
@@ -114,42 +116,56 @@ const Chat = () => {
     };
   }, [userId, targetUserId]);
 
-  // Auto-scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [message]);
 
-  const HandleSendBtn = () => {
-    if (!input.trim()) return;
-
-    const socket = createSocketConnection();
+  // Always use the existing socket from the ref — never create a new one here
+  const HandleSendBtn = (textOverride) => {
+    const textToSend = (textOverride ?? input).trim();
+    if (!textToSend || !socketRef.current) return;
 
     const now = new Date().toISOString();
 
-    socket.emit('sendMessage', {
+    socketRef.current.emit('sendMessage', {
       firstName: user.firstName,
       lastName: user.lastName,
       userId,
       photoUrl: user.photoUrl,
       targetUserId,
-      text: input,
+      text: textToSend,
     });
 
-    // Update messenger sidebar state
-    dispatch(updateLastMessage({ targetUserId, text: input, createdAt: now }));
-
+    dispatch(updateLastMessage({ targetUserId, text: textToSend, createdAt: now }));
     setInput('');
   };
 
+  const handleChange = (e) => {
+    const val = e.target.value;
+
+    // On Android, pressing the return/enter key on a textarea injects '\n' into
+    // the value via onChange BEFORE onKeyDown fires (or instead of it entirely).
+    // We only want to treat a trailing \n as "send" on mobile — on desktop the
+    // user can freely type multi-line messages and sends via the Enter key event.
+    if (isMobile && val.endsWith('\n')) {
+      // Strip the trailing newline and send — don't put it in state
+      HandleSendBtn(val.trimEnd());
+      return;
+    }
+
+    setInput(val);
+  };
+
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    // Desktop only: Enter sends, Shift+Enter inserts newline
+    if (!isMobile && e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       HandleSendBtn();
     }
   };
 
   return (
-    <div className="w-full md:w-2/3 lg:w-2/3 mx-auto mt-8 h-[90vh] flex flex-col bg-base-200 border border-base-300 rounded-3xl shadow-2xl overflow-hidden">
+    <div className="w-full md:w-2/3 lg:w-2/3 mx-auto md:mt-8 h-[90vh] flex flex-col bg-base-200 border border-base-300 md:rounded-3xl shadow-2xl overflow-hidden">
 
       {/* Header */}
       <div className="flex items-center gap-4 px-6 py-4 border-b border-base-300 bg-base-100/70 backdrop-blur">
@@ -158,14 +174,20 @@ const Chat = () => {
             <img src={targetUser?.photoUrl} alt="user" />
           </div>
         </div>
-        <div>
-          <h1 className="font-bold text-lg">
+        <div className="flex-1 min-w-0">
+          <h1 className="font-bold text-md md:text-lg truncate">
             {targetUser?.firstName} {targetUser?.lastName}
           </h1>
           <h1 className="opacity-50 text-sm capitalize">
             {targetUser?.experienceLevel || 'Intermediate'}
           </h1>
         </div>
+        <button
+          className="md:hidden btn btn-ghost font-semibold text-md bg-primary btn-sm ml-auto"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </button>
       </div>
 
       {/* Messages */}
@@ -186,7 +208,6 @@ const Chat = () => {
                   isMine ? 'flex-row-reverse' : ''
                 }`}
               >
-                {/* Avatar */}
                 <div className="avatar">
                   <div className="w-8 h-8 rounded-full">
                     <img
@@ -199,7 +220,6 @@ const Chat = () => {
                   </div>
                 </div>
 
-                {/* Bubble */}
                 <div
                   className={`px-4 py-3 rounded-2xl shadow-md break-words ${
                     isMine
@@ -239,18 +259,18 @@ const Chat = () => {
             className="textarea textarea-bordered flex-1 resize-none rounded-2xl min-h-[52px] max-h-36"
             placeholder="Type a message..."
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
           <button
             className="btn btn-primary rounded-2xl px-6"
-            onClick={HandleSendBtn}
+            onClick={() => HandleSendBtn()}
           >
             ➤
           </button>
         </div>
         <p className="text-[11px] text-base-content/40 mt-2 px-1">
-          Press Enter to send • Shift + Enter for new line
+          {isMobile ? 'Tap ➤ to send · use ↵ for new line' : 'Enter to send · Shift+Enter for new line'}
         </p>
       </div>
     </div>

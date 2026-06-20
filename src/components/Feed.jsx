@@ -103,7 +103,7 @@ export default function Feed() {
       <div className="text-center">
         <h1 className="text-2xl font-bold text-base-content">Discover Developers</h1>
         <p className="text-sm text-base-content/50 mt-1">
-          {feed.length} profile{feed.length !== 1 ? "s" : ""} remaining
+          Developers Curated for You
         </p>
       </div>
 

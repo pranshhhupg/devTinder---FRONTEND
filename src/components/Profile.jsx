@@ -9,10 +9,10 @@ import { addUser } from "../utils/userSlice";
 
 const TYPE_META = {
   "hackathon":{ badge: "badge-primary",icon: "" },
-  "startup": { badge: "badge-secondary",icon: "" },
-  "company hiring":{ badge: "badge-success",icon: "" },
-  "open source": { badge: "badge-info", icon: "" },
-  "freelance": { badge: "badge-warning", icon: "" },
+  "startup": { badge: "badge-primary",icon: "" },
+  "company hiring":{ badge: "badge-primary",icon: "" },
+  "open source": { badge: "badge-primary", icon: "" },
+  "freelance": { badge: "badge-primary", icon: "" },
 };
 
 function Row({ label, children }) {

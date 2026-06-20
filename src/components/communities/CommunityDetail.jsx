@@ -218,7 +218,7 @@ export default function CommunityDetail() {
                         </h1>
     
                         {community.isAdmin && (
-                          <span className="badge badge-primary badge-outline ml-2 mt-1 badge-lg font-semibold">
+                          <span className="badge badge-primary badge-outline md:ml-2 mt-1 badge-lg font-semibold">
                             Admin
                           </span>
                         )}
@@ -234,15 +234,15 @@ export default function CommunityDetail() {
                       <div className="flex flex-wrap gap-3 mt-3 text-sm text-base-content/60">
     
                         <span className="badge badge-primary text-black font-semibold gap-1 px-3 py-3">
-                          {icon} {categoryLabel}
+                          {categoryLabel}
                         </span>
     
                         <span className="badge badge-primary text-black font-semibold gap-1 px-3 py-3">
-                          👥 {community.members?.length || 0} Members
+                          {community.members?.length || 0} Members
                         </span>
     
                         <span className="badge badge-primary text-black font-semibold gap-1 px-3 py-3">
-                          📅{" "}
+                          
                           {new Date(
                             community.createdAt
                           ).toLocaleDateString("en-IN", {
@@ -264,7 +264,7 @@ export default function CommunityDetail() {
                     {community.messagePermission ===
                     "admins_only"
                       ? "🔒 Only admins can send messages"
-                      : "💬 Open community discussions enabled"}
+                      : "󠁯➤ Open community discussions enabled"}
                   </div>
                 </div>
     

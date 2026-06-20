@@ -30,25 +30,6 @@ const CATEGORIES = [
   { value: "general", label: "General" },
 ];
 
-const CATEGORY_ICONS = {
-  dsa: "🧮",
-  backend: "⚙️",
-  frontend: "🎨",
-  ml: "🤖",
-  ai: "✨",
-  "data-science": "📊",
-  devops: "☁️",
-  mobile: "📱",
-  qa: "🧪",
-  "open-source": "🌐",
-  startup: "🚀",
-  "system-design": "🏗️",
-  web3: "🔗",
-  cybersecurity: "🔐",
-  consulting: "💼",
-  general: "💬",
-};
-
 export default function CommunityList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -212,8 +193,8 @@ export default function CommunityList() {
             </span>
           )}
           {category && (
-            <span className="badge badge-secondary gap-1">
-              {CATEGORY_ICONS[category]} {CATEGORIES.find((c) => c.value === category)?.label}
+            <span className="badge badge-primary font-semibold gap-1">
+              {CATEGORIES.find((c) => c.value === category)?.label}
               <button className="ml-1" onClick={() => setCategory("")}>
                 ✕
               </button>

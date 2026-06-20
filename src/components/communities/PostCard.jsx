@@ -176,7 +176,7 @@ export default function PostCard({
               >
                 {isAuthor && (
                   <li>
-                    <button onClick={() => setIsEditing(true)}>✏️ Edit</button>
+                    <button onClick={() => setIsEditing(true)}>Edit</button>
                   </li>
                 )}
                 <li>

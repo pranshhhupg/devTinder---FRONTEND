@@ -168,8 +168,8 @@ export default function CommunityPosts({ community }) {
           </span>
         )}
         {tagFilter && (
-          <span className="badge badge-secondary gap-1">
-            🏷 {tagFilter}
+          <span className="badge badge-primary gap-1">
+             {tagFilter}
             <button onClick={() => setTagFilter("")}>✕</button>
           </span>
         )}

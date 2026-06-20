@@ -279,19 +279,19 @@ export default function MemberManagement({ community, onUpdate }) {
                       <div className="flex flex-wrap gap-2 mt-2">
   
                         {creator && (
-                          <span className="badge badge-accent badge-md font-medium">
+                          <span className="badge badge-primary text-black badge-md font-medium">
                              Creator
                           </span>
                         )}
   
                         {admin && !creator && (
-                          <span className="badge badge-info badge-md font-medium">
+                          <span className="badge badge-primary text-black badge-md font-medium">
                              Admin
                           </span>
                         )}
   
                         {member.experienceLevel && (
-                          <span className="badge badge-outline badge-md capitalize">
+                          <span className="badge badge-primary badge-outline badge-md capitalize">
                             {member.experienceLevel}
                           </span>
                         )}
