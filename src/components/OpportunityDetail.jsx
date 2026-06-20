@@ -108,7 +108,7 @@ export default function OpportunityDetails({ opportunity, onClose }) {
               {rolesNeeded.map((role) => (
                 <span
                   key={role}
-                  className="badge badge-secondary badge-outline capitalize"
+                  className="badge badge-primary badge-outline capitalize"
                 >
                   {role}
                 </span>
