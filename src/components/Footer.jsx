@@ -3,7 +3,8 @@ const Footer = () => {
         <div className="pt-10">
             <footer className="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
                 <aside>
-                    <p>Created and Hosted by Pranshu Gupta, MAIT Rohini.</p>
+                    <p>Designed, developed, and deployed by</p>
+                    <p>Pranshu Gupta, MAIT.</p>
                 </aside>
             </footer>
         </div>

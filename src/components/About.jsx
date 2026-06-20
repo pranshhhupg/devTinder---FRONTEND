@@ -194,9 +194,9 @@ const features = [
           <div className="card bg-base-100 border border-base-300">
             <div className="card-body md:p-8 p-6 flex-col sm:flex-row gap-8 items-start">
               {/* Avatar placeholder */}
-              <div className="w-20 h-20 rounded-full bg-primary/15 flex items-center justify-center text-3xl font-extrabold text-primary flex-shrink-0 ring-4 ring-base-100 shadow">
-                PG
-              </div>
+              <div className="hidden md:flex w-20 h-20 rounded-full bg-primary/15 items-center justify-center text-3xl font-extrabold text-primary flex-shrink-0 ring-4 ring-base-100 shadow">
+  PG
+</div>
               <div className="flex-1">
                 <h3 className="text-xl text-primary font-bold mb-0.5">Pranshu Gupta</h3>
                 <p className="text-sm text-base-content/50 mb-4">
@@ -224,7 +224,7 @@ const features = [
           <div className="max-w-4xl mx-auto px-6 py-16 text-center">
             <h2 className="text-3xl font-extrabold mb-3">Ready to find your team?</h2>
             <p className="text-primary-content/70 mb-8 text-base max-w-xl mx-auto">
-              Join DevMatch and connect with developers who want to build the same things you do.
+            Join DevMatch and Connect with developers who match your desired skills, roles, and interests..
             </p>
             <a href="/feed" className="btn btn-neutral btn-lg rounded-full px-10 font-bold shadow-md">
               Go to Feed
