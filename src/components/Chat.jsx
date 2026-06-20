@@ -22,7 +22,7 @@ const Chat = () => {
   const messagesEndRef = useRef(null);
   const socketRef = useRef(null);
 
-  // Detect mobile once — stable across renders
+  // Stable across renders — evaluated once at mount
   const isMobile = useRef(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)).current;
 
   const fetchTargetUser = async () => {
@@ -31,9 +31,7 @@ const Chat = () => {
         withCredentials: true,
       });
       setTargetUser(res.data);
-    } catch (err) {
-      console.log(err.response);
-    }
+    } catch (err) {}
   };
 
   const fetchChatMessages = async () => {
@@ -59,9 +57,7 @@ const Chat = () => {
       });
 
       setMessage(msgs);
-    } catch (err) {
-      console.log(err.response);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -69,11 +65,7 @@ const Chat = () => {
     fetchTargetUser();
 
     axios
-      .post(
-        `${BASE_URL}/chat/mark-read/${targetUserId}`,
-        {},
-        { withCredentials: true }
-      )
+      .post(`${BASE_URL}/chat/mark-read/${targetUserId}`, {}, { withCredentials: true })
       .catch(() => {});
     dispatch(markConversationRead({ userId: targetUserId }));
   }, []);
@@ -93,18 +85,11 @@ const Chat = () => {
         minute: '2-digit',
       });
 
-      setMessage((prev) => [
-        ...prev,
-        { firstName, lastName, photoUrl, text, time, senderId },
-      ]);
+      setMessage((prev) => [...prev, { firstName, lastName, photoUrl, text, time, senderId }]);
 
       if (senderId && senderId !== userId) {
         axios
-          .post(
-            `${BASE_URL}/chat/mark-read/${targetUserId}`,
-            {},
-            { withCredentials: true }
-          )
+          .post(`${BASE_URL}/chat/mark-read/${targetUserId}`, {}, { withCredentials: true })
           .catch(() => {});
         dispatch(markConversationRead({ userId: targetUserId }));
       }
@@ -120,7 +105,7 @@ const Chat = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [message]);
 
-  // Always use the existing socket from the ref — never create a new one here
+  // Always use the stable socketRef — never create a new socket here
   const HandleSendBtn = (textOverride) => {
     const textToSend = (textOverride ?? input).trim();
     if (!textToSend || !socketRef.current) return;
@@ -140,24 +125,21 @@ const Chat = () => {
     setInput('');
   };
 
+  // Mirrors ChatPanel in Messenger.jsx exactly:
+  // On Android, the return key injects '\n' into the value via onChange
+  // before (or instead of) onKeyDown firing. Intercept it here and send.
   const handleChange = (e) => {
     const val = e.target.value;
-
-    // On Android, pressing the return/enter key on a textarea injects '\n' into
-    // the value via onChange BEFORE onKeyDown fires (or instead of it entirely).
-    // We only want to treat a trailing \n as "send" on mobile — on desktop the
-    // user can freely type multi-line messages and sends via the Enter key event.
     if (isMobile && val.endsWith('\n')) {
-      // Strip the trailing newline and send — don't put it in state
       HandleSendBtn(val.trimEnd());
       return;
     }
-
     setInput(val);
   };
 
+  // Desktop only: Enter sends, Shift+Enter inserts newline.
+  // On mobile this never triggers a send — the button or handleChange does.
   const handleKeyDown = (e) => {
-    // Desktop only: Enter sends, Shift+Enter inserts newline
     if (!isMobile && e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       HandleSendBtn();
@@ -199,49 +181,29 @@ const Chat = () => {
               : msg.firstName === user.firstName;
 
           return (
-            <div
-              key={index}
-              className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`max-w-[75%] flex gap-2 items-end ${
-                  isMine ? 'flex-row-reverse' : ''
-                }`}
-              >
+            <div key={index} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[75%] flex gap-2 items-end ${isMine ? 'flex-row-reverse' : ''}`}>
                 <div className="avatar">
                   <div className="w-8 h-8 rounded-full">
                     <img
-                      src={
-                        msg.photoUrl ||
-                        'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
-                      }
+                      src={msg.photoUrl || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'}
                       alt="avatar"
                     />
                   </div>
                 </div>
 
-                <div
-                  className={`px-4 py-3 rounded-2xl shadow-md break-words ${
-                    isMine
-                      ? 'bg-primary text-primary-content rounded-br-md'
-                      : 'bg-base-200 rounded-bl-md'
-                  }`}
-                >
+                <div className={`px-4 py-3 rounded-2xl shadow-md break-words ${
+                  isMine ? 'bg-primary text-primary-content rounded-br-md' : 'bg-base-200 rounded-bl-md'
+                }`}>
                   {!isMine && (
                     <p className="text-xs font-semibold mb-1 opacity-70">
                       {msg.firstName} {msg.lastName}
                     </p>
                   )}
-                  <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                    {msg.text}
-                  </p>
-                  <div
-                    className={`text-[10px] mt-2 flex justify-end ${
-                      isMine
-                        ? 'text-primary-content/70'
-                        : 'text-base-content/40'
-                    }`}
-                  >
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
+                  <div className={`text-[10px] mt-2 flex justify-end ${
+                    isMine ? 'text-primary-content/70' : 'text-base-content/40'
+                  }`}>
                     {msg.time || 'Now'}
                   </div>
                 </div>
@@ -270,7 +232,7 @@ const Chat = () => {
           </button>
         </div>
         <p className="text-[11px] text-base-content/40 mt-2 px-1">
-        {isMobile ? 'Tap ➤ to send · Enter for new line' : 'Enter to send · Shift+Enter for new line'}
+          {isMobile ? 'Tap ➤ to send · use ↵ for new line' : 'Enter to send · Shift+Enter for new line'}
         </p>
       </div>
     </div>
