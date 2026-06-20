@@ -24,7 +24,6 @@ const Requests = () => {
 
       dispatch(removeRequest(id));
     } catch (err) {
-      console.log(err.response.data);
     }
   };
 
@@ -36,7 +35,6 @@ const Requests = () => {
 
       dispatch(addRequest(response.data.data));
     } catch (err) {
-      console.log(err.response);
     }
   };
 

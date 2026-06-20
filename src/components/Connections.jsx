@@ -20,7 +20,7 @@ const Connections = () => {
 
       dispatch(addConnection(users.data.data));
     } catch (err) {
-      console.log(err.response);
+
     }
   };
 

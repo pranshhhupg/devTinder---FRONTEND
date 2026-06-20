@@ -353,7 +353,7 @@ const ChatPanel = ({ targetUserId, onMessageSent, onBack }) => {
       <div className="p-3 border-t border-base-300 bg-base-100 flex-shrink-0">
         <div className="flex items-end gap-2">
           <textarea
-            className="textarea textarea-bordered flex-1 resize-none rounded-2xl text-sm min-h-[44px] max-h-28"
+            className="textarea textarea-bordered flex-1 resize-none rounded-2xl text-sm min-h-[44px] h-[62px] md:h-28"
             placeholder="Type a message…"
             value={input}
             onChange={(e) => setInput(e.target.value)}
